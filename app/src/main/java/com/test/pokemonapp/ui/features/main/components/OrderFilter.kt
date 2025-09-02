@@ -17,11 +17,11 @@ import com.test.pokemonapp.data.network.models.Stats
 
 @Composable
 fun OrderFilter(
-    orderFilter: Stats,
-    onOrderChange: (newOrder: Stats) -> Unit
+    orderFilter: Stats?,
+    onOrderChange: (newOrder: Stats?) -> Unit
 ) {
     val options = listOf(
-        Stats.NAME, Stats.HP, Stats.ATTACK, Stats.DEFENSE,
+        null, Stats.NAME, Stats.HP, Stats.ATTACK, Stats.DEFENSE,
         Stats.SP_ATTACK, Stats.SP_DEFENSE, Stats.SPEED
     )
 
@@ -40,7 +40,13 @@ fun OrderFilter(
                     modifier = Modifier.size(70.dp)
                 ) {
                     Text(
-                        text = if (option.name.length >= 5) option.name.substring(0, 4) else option.name,
+                        text = if (option == null) {
+                            "None"
+                        } else if (option.name.length >= 5) {
+                            option.name.substring(0, 4)
+                        } else {
+                            option.name
+                        },
                         style = MaterialTheme.typography.bodySmall
                     )
                 }

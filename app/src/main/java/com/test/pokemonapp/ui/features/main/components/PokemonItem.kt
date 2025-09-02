@@ -17,10 +17,10 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.test.pokemonapp.data.database.models.PokemonDBO
+import com.test.pokemonapp.domain.PokemonData
 
 @Composable
-fun PokemonItem(pokemonDBO: PokemonDBO) {
+fun PokemonItem(pokemonDBO: PokemonData) {
     val context = LocalContext.current
     Card(
         onClick = {
@@ -52,10 +52,6 @@ fun PokemonItem(pokemonDBO: PokemonDBO) {
                 text = pokemonDBO.pokemonName.replaceFirstChar { it.uppercase() },
                 style = MaterialTheme.typography.bodyLarge
             )
-//            Text(text = "W:${pokemonDBO.pokemonWeight} H:${pokemonDBO.pokemonHeight}\n" +
-//                    "HP:${pokemonDBO.pokemonHp} SP:${pokemonDBO.pokemonSpeed} " +
-//                    "AT:${pokemonDBO.pokemonAttack} DF:${pokemonDBO.pokemonDefense}\n" +
-//                    "SAT:${pokemonDBO.pokemonSAttack} SDF:${pokemonDBO.pokemonSDefense} ")
         }
     }
 }

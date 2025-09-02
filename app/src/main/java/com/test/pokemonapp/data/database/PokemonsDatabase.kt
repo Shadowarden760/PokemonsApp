@@ -5,8 +5,6 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.test.pokemonapp.data.database.converters.ListTypeConverter
 import com.test.pokemonapp.data.database.dao.PokemonsDao
 import com.test.pokemonapp.data.database.models.PokemonDBO
 
@@ -20,7 +18,6 @@ import com.test.pokemonapp.data.database.models.PokemonDBO
     exportSchema = true,
     version = 4
 )
-@TypeConverters(ListTypeConverter::class)
 abstract class PokemonsDatabase(): RoomDatabase() {
 
     abstract fun pokemonsDao(): PokemonsDao

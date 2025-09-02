@@ -16,12 +16,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -31,13 +27,15 @@ import com.test.pokemonapp.data.network.models.Stats
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Filters(
-    onApplyFilters: (weight: Int, height: Int, newOrder: Stats) -> Unit,
+    weightFilter: Int,
+    heightFilter: Int,
+    orderFilter: Stats?,
+    onWeightChange: (Int) -> Unit,
+    onHeightChange: (Int) -> Unit,
+    onOrderChange: (Stats?) -> Unit,
+    onApplyFilters: (weight: Int, height: Int, newOrder: Stats?) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val weightFilter = remember { mutableIntStateOf(0) }
-    val heightFilter = remember { mutableIntStateOf(0) }
-    val orderFilter = remember { mutableStateOf(Stats.NAME) }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -63,16 +61,16 @@ fun Filters(
         }
         Spacer(modifier = Modifier.height(24.dp))
         OrderFilter(
-            orderFilter = orderFilter.value,
-            onOrderChange = { newOrder -> orderFilter.value = newOrder }
+            orderFilter = orderFilter,
+            onOrderChange = onOrderChange
         )
         WeightFilter(
-            weightFilter = weightFilter.intValue,
-            onWeightChange = { weightFilter.intValue = it }
+            weightFilter = weightFilter,
+            onWeightChange = onWeightChange
         )
         HeightFilter(
-            heightFilter = heightFilter.intValue,
-            onHeightChange = { heightFilter.intValue = it }
+            heightFilter = heightFilter,
+            onHeightChange = onHeightChange
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -80,9 +78,9 @@ fun Filters(
         ) {
             OutlinedButton(
                 onClick = {
-                    weightFilter.intValue = 0
-                    heightFilter.intValue = 0
-                    orderFilter.value = Stats.NAME
+                    onWeightChange(0)
+                    onHeightChange(0)
+                    onOrderChange(null)
                 }
             ) {
                 Text("Reset")
@@ -90,7 +88,7 @@ fun Filters(
             Spacer(modifier = Modifier.width(16.dp))
             Button(
                 onClick = {
-                    onApplyFilters(weightFilter.intValue, heightFilter.intValue, orderFilter.value)
+                    onApplyFilters(weightFilter, heightFilter, orderFilter)
                 }
             ) {
                 Text("Apply")
@@ -98,46 +96,4 @@ fun Filters(
         }
         Spacer(modifier = Modifier.height(16.dp))
     }
-}
-
-@Composable
-fun WeightFilter(
-    weightFilter: Int,
-    onWeightChange: (Int) -> Unit,
-) {
-    Text(
-        text = "Weight",
-        style = MaterialTheme.typography.titleMedium
-    )
-    Spacer(modifier = Modifier.height(8.dp))
-    Slider(
-        value = weightFilter.toFloat(),
-        onValueChange = { newValue ->
-            onWeightChange(newValue.toInt())
-        },
-        valueRange = 0f..400f
-    )
-    Text(text = "Current weight: $weightFilter")
-    Spacer(modifier = Modifier.height(24.dp))
-}
-
-@Composable
-fun HeightFilter(
-    heightFilter: Int,
-    onHeightChange: (Int) -> Unit,
-) {
-    Text(
-        text = "Height",
-        style = MaterialTheme.typography.titleMedium
-    )
-    Spacer(modifier = Modifier.height(8.dp))
-    Slider(
-        value = heightFilter.toFloat(),
-        onValueChange = { newValue ->
-            onHeightChange(newValue.toInt())
-        },
-        valueRange = 0f..100f
-    )
-    Text(text = "Current height: $heightFilter")
-    Spacer(modifier = Modifier.height(32.dp))
 }

@@ -4,6 +4,7 @@ import com.test.pokemonapp.common.Constants.PAGE_SIZE
 import com.test.pokemonapp.data.database.models.PokemonDBO
 import com.test.pokemonapp.data.network.models.PokemonDataDTO
 import com.test.pokemonapp.data.network.models.Stats
+import com.test.pokemonapp.domain.PokemonData
 
 fun PokemonDataDTO.toPokemonDBO(): PokemonDBO {
     return PokemonDBO(
@@ -20,5 +21,20 @@ fun PokemonDataDTO.toPokemonDBO(): PokemonDBO {
         pokemonSpeed = this.pokemonStats.find { it.stat.name == Stats.SPEED }?.baseStat ?: 0,
         pokemonPage = ((this.pokemonId - 1) / PAGE_SIZE) + 1,
 
+    )
+}
+
+fun PokemonDBO.toPokemonsData(): PokemonData {
+    return PokemonData(
+        pokemonName = this.pokemonName,
+        pokemonWeight = this.pokemonWeight,
+        pokemonHeight = this.pokemonHeight,
+        pokemonPhoto = this.pokemonPhoto,
+        pokemonHp = this.pokemonHp,
+        pokemonAttack = this.pokemonAttack,
+        pokemonDefense = this.pokemonDefense,
+        pokemonSAttack = this.pokemonSAttack,
+        pokemonSDefense = this.pokemonSDefense,
+        pokemonSpeed = this.pokemonSpeed,
     )
 }

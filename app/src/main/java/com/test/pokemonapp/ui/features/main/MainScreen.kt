@@ -8,6 +8,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -34,6 +35,9 @@ fun MainScreen(viewModel: MainScreenViewModel = koinViewModel()) {
     val isRefreshing = remember { mutableStateOf(false) }
 
     val filters = viewModel.filterState.collectAsStateWithLifecycle()
+    val weightFilter = remember { mutableIntStateOf(0) }
+    val heightFilter = remember { mutableIntStateOf(0) }
+    val orderFilter = remember { mutableStateOf<Stats?>(null) }
 
     Column {
         Header(
@@ -48,7 +52,7 @@ fun MainScreen(viewModel: MainScreenViewModel = koinViewModel()) {
                 scope.launch {
                     isRefreshing.value = true
                     pokemons.refresh()
-                    delay(1000)
+                    delay(1000) // ¯\_(ツ)_/¯ animation moment of PullToRefresh
                     isRefreshing.value = false
                 }
             },
@@ -64,7 +68,13 @@ fun MainScreen(viewModel: MainScreenViewModel = koinViewModel()) {
             onDismissRequest = { showBottomSheet.value = false }
         ) {
             Filters(
-                onApplyFilters = { weight: Int, height: Int, newOrder: Stats ->
+                weightFilter = weightFilter.intValue,
+                heightFilter = heightFilter.intValue,
+                orderFilter = orderFilter.value,
+                onWeightChange = { weightFilter.intValue = it },
+                onHeightChange = { heightFilter.intValue = it },
+                onOrderChange = { orderFilter.value = it },
+                onApplyFilters = { weight: Int, height: Int, newOrder: Stats? ->
                     viewModel.updateFilters(weight = weight, height = height, sortBy = newOrder)
                     showBottomSheet.value = false
                 },

@@ -108,10 +108,3 @@ interface PokemonsDao {
     @Query("DELETE FROM Pokemons")
     suspend fun clearAllPokemons()
 }
-
-//CASE WHEN :order = 2 THEN pokemon_hp END ASC,
-//CASE WHEN :order = 3 THEN pokemon_attack END ASC,
-//CASE WHEN :order = 4 THEN pokemon_defense END ASC,
-//CASE WHEN :order = 5 THEN pokemon_s_attack END ASC,
-//CASE WHEN :order = 6 THEN pokemon_s_defense END ASC,
-//CASE WHEN :order = 7 THEN pokemon_speed END ASC

@@ -6,16 +6,20 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.test.pokemonapp.common.Constants.PAGE_SIZE
 import com.test.pokemonapp.data.PokemonsRemoteMediator
 import com.test.pokemonapp.data.database.dao.PokemonsDao
 import com.test.pokemonapp.data.network.models.Stats
+import com.test.pokemonapp.data.toPokemonsData
 import com.test.pokemonapp.domain.FilterData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalPagingApi::class, FlowPreview::class)
 class MainScreenViewModel(
@@ -41,6 +45,7 @@ class MainScreenViewModel(
     }
 
     val pokemonsPagingFlow = _filterState
+        .debounce(500)
         .flatMapLatest { newFilters ->
             Pager(
                 config = PagingConfig(pageSize = PAGE_SIZE),
@@ -52,6 +57,9 @@ class MainScreenViewModel(
                         databaseDao.getAllPokemons(filters = newFilters)
                     }
                 }
-            ).flow.cachedIn(viewModelScope)
+            )
+            .flow
+            .map { pagingData -> pagingData.map { it.toPokemonsData() } }
+            .cachedIn(viewModelScope)
         }.cachedIn(viewModelScope)
 }

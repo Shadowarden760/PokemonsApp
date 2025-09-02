@@ -17,11 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.test.pokemonapp.data.database.models.PokemonDBO
+import com.test.pokemonapp.domain.PokemonData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonList(pokemons: LazyPagingItems<PokemonDBO>) {
+fun PokemonList(pokemons: LazyPagingItems<PokemonData>) {
     if (pokemons.loadState.refresh is LoadState.Loading) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
