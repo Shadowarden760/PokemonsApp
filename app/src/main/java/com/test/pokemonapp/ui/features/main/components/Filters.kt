@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.test.pokemonapp.R
 import com.test.pokemonapp.data.network.models.Stats
@@ -33,7 +34,7 @@ fun Filters(
     onWeightChange: (Int) -> Unit,
     onHeightChange: (Int) -> Unit,
     onOrderChange: (Stats?) -> Unit,
-    onApplyFilters: (weight: Int, height: Int, newOrder: Stats?) -> Unit,
+    onApplyFilters: () -> Unit,
     onDismiss: () -> Unit
 ) {
     Column(
@@ -54,7 +55,7 @@ fun Filters(
                 )
             }
             Text(
-                text = "Filters",
+                text = stringResource(R.string.filters_text_filters),
                 style = MaterialTheme.typography.headlineSmall
             )
 
@@ -83,15 +84,11 @@ fun Filters(
                     onOrderChange(null)
                 }
             ) {
-                Text("Reset")
+                Text(stringResource(R.string.filters_button_reset))
             }
             Spacer(modifier = Modifier.width(16.dp))
-            Button(
-                onClick = {
-                    onApplyFilters(weightFilter, heightFilter, orderFilter)
-                }
-            ) {
-                Text("Apply")
+            Button(onClick = onApplyFilters) {
+                Text(stringResource(R.string.filters_button_apply))
             }
         }
         Spacer(modifier = Modifier.height(16.dp))

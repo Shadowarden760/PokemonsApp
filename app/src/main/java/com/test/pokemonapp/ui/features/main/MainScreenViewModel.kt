@@ -40,7 +40,7 @@ class MainScreenViewModel(
             query = query ?: _filterState.value.query,
             weight = weight ?: _filterState.value.weight,
             height = height ?: _filterState.value.height,
-            sortBy = sortBy ?: _filterState.value.sortBy
+            sortBy = sortBy
         )
     }
 

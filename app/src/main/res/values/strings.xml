@@ -1,3 +1,18 @@
 <resources>
+
     <string name="app_name">PokemonApp</string>
+
+    <string name="main_text_search">Search…</string>
+    <string name="main_text_pokemons_not_found">Pokemons not found…</string>
+
+    <string name="filters_text_filters">Filters</string>
+    <string name="filters_button_reset">Reset</string>
+    <string name="filters_button_apply">Apply</string>
+    <string name="filters_text_order_by">Order By…</string>
+    <string name="filters_text_none">None</string>
+    <string name="filters_text_weight">Weight</string>
+    <string name="filters_text_current_weight">Current weight: %1$d</string>
+    <string name="filters_text_height">Height</string>
+    <string name="filters_text_current_height">Current height: %1$d</string>
+
 </resources>

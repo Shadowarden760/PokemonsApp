@@ -7,7 +7,9 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.test.pokemonapp.R
 
 @Composable
 fun WeightFilter(
@@ -15,7 +17,7 @@ fun WeightFilter(
     onWeightChange: (Int) -> Unit,
 ) {
     Text(
-        text = "Weight",
+        text = stringResource(R.string.filters_text_weight),
         style = MaterialTheme.typography.titleMedium
     )
     Spacer(modifier = Modifier.height(8.dp))
@@ -26,6 +28,6 @@ fun WeightFilter(
         },
         valueRange = 0f..400f
     )
-    Text(text = "Current weight: $weightFilter")
+    Text(text = stringResource(R.string.filters_text_current_weight, weightFilter))
     Spacer(modifier = Modifier.height(24.dp))
 }

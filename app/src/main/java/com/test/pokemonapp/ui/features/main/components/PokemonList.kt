@@ -14,9 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.test.pokemonapp.R.string
 import com.test.pokemonapp.domain.PokemonData
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,7 +63,7 @@ fun PokemonList(pokemons: LazyPagingItems<PokemonData>) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Spacer(modifier = Modifier.weight(1f))
-                    Text("Pokemons not found.....")
+                    Text(stringResource(string.main_text_pokemons_not_found))
                     Spacer(modifier = Modifier.weight(1f))
                 }
             }

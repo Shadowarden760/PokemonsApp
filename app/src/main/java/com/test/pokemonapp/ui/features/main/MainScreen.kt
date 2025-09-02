@@ -74,8 +74,12 @@ fun MainScreen(viewModel: MainScreenViewModel = koinViewModel()) {
                 onWeightChange = { weightFilter.intValue = it },
                 onHeightChange = { heightFilter.intValue = it },
                 onOrderChange = { orderFilter.value = it },
-                onApplyFilters = { weight: Int, height: Int, newOrder: Stats? ->
-                    viewModel.updateFilters(weight = weight, height = height, sortBy = newOrder)
+                onApplyFilters = {
+                    viewModel.updateFilters(
+                        weight = weightFilter.intValue,
+                        height = heightFilter.intValue,
+                        sortBy = orderFilter.value
+                    )
                     showBottomSheet.value = false
                 },
                 onDismiss = { showBottomSheet.value = false }

@@ -10,8 +10,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.test.pokemonapp.R
 
 @Composable
 fun Search(
@@ -24,7 +26,7 @@ fun Search(
         modifier = Modifier.padding(16.dp),
         singleLine = true,
         placeholder = {
-            Text("Search...")
+            Text(stringResource(R.string.main_text_search))
         },
         leadingIcon = {
             Icon(Icons.Default.Search, contentDescription = null)
